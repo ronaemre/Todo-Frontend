@@ -36,7 +36,7 @@ export default function WebNavbar() {
         <div>
             <Navbar variant="dark" className={classes.navbar}>
                 <Container>
-                    <Navbar.Brand href="#home">TODO APPLICATION</Navbar.Brand>
+                    <Navbar.Brand href="#home" id="navbar_header">TODO APPLICATION</Navbar.Brand>
                     <Form className={classes.form}>
                         <FormControl
                             className={classes.SearchInput}
@@ -47,14 +47,14 @@ export default function WebNavbar() {
                         {/* //SearchBar aktif değil */}
                         <Button className={classes.searchButton} variant="contained">Search</Button>
                     </Form>
-                    <div data-testid="Add-user-button">
+                    <div data-testid="Login-button">
                         <Button
-                            id="Add-character-button"
+                            id="Login-button"
                             type="button"
                             className="btn btn-md btn-danger"
                             style={{ float: "right" }}
                         >
-                            Add TODO
+                            Login
                         </Button>
                     </div>
                 </Container>

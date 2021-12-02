@@ -19,31 +19,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const TodoLists = () => {
+const TodoLists = ({ todos, setTodosHandler }) => {
     const classes = useStyles();
-    const [todos, setTodos] = useState([]);
-
-
-    const getTodosHandler = async () => {
-        const response = await getTodo();
-        setTodos(response.data)
-
-    }
-
-
-    const setTodosHandler = (todos) => {
-        setTodos(todos)
-    }
-
-    useEffect(() => {
-        getTodosHandler();
-    }, [])
 
     return (
         <main className={classes.content}>
             <div className={classes.toolbar}></div>
             {<Grid container justify="center" spacing={4}>
-                {todos.map((todo) => (
+                {todos && todos.map((todo) => (
                     <Grid item key={todo.id} xs={12} sm={6} md={4} lg={3}>
                         <TodoList todo={todo} setTodosHandler={setTodosHandler} />
                     </Grid>

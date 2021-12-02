@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 import { getTodo } from "../api/TodoApı";
 
-const AddTodo = () => {
+const AddTodo = ({ setTodosHandler }) => {
 
     const [name, setName] = useState("");
     const [details, setDetails] = useState("");
-    const [todos, setTodos] = useState([]);
+    const [saved, setSaved] = useState("")
 
 
     async function addTodo() {
@@ -19,8 +19,10 @@ const AddTodo = () => {
             name,
             details,
         });
-        alert("Todo Saved")
-        /*  getTodo(); */            //TODO EKLENDİKTEN SONRA SAYFANIN GÜNCELLENMESİ 
+
+        setSaved("Succesfully")
+        /* alert("Todo Saved") */
+        setTodosHandler({ name, details })
     }
 
 
@@ -29,6 +31,7 @@ const AddTodo = () => {
         <div className="container" style={{ backgroundColor: "pink", borderRadius: "20px", marginTop: "30px" }} data-testid="container">
             <div >
                 <input
+                    data-testid="add_info"
                     className="form-control"
                     id="disabledInput"
                     type="text"
@@ -36,20 +39,22 @@ const AddTodo = () => {
                     disabled
                 />
                 <div className="form-row">
-                    <div className="form-group col-md-10" data-testid="name">
+                    <div className="form-group col-md-10" data-testid="name" id="todo-name">
                         <label htmlFor="inputName">Name</label>
-                        <input type="text" className="form-control" name="name" onChange={(e) => setName(e.target.value)} />
+                        <input type="text" className="form-control" data-testid="name_input" name="name" onChange={(e) => setName(e.target.value)} />
                     </div>
-                    <div className="form-group col-md-2" data-testid="details">
-                        <label htmlFor="inputRating">Details</label>
-                        <input type="text" className="form-control" name="rating" onChange={(e) => setDetails(e.target.value)} />
+                    <div className="form-group col-md-2" data-testid="details" id="todo-details">
+                        <label htmlFor="inputDetails">Details</label>
+                        <input type="text" className="form-control" data-testid="details_input" name="details" onChange={(e) => setDetails(e.target.value)} />
                     </div>
                 </div>
+                <h3 data-testid="error" id="saved-succesfuly">{saved}</h3>
                 <input
                     onClick={addTodo}
                     type="submit"
                     className="btn btn-danger btn-block"
                     value="Add Todo"
+                    name="Add Todo"
                 />
             </div >
         </div >

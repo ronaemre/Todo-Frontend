@@ -21,7 +21,7 @@ const TodoList = ({ todo, setTodosHandler }) => {
 
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} data-testid="todolist-card">
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -31,11 +31,11 @@ const TodoList = ({ todo, setTodosHandler }) => {
             </div>
             <CardContent>
                 <div className={classes.cardContent}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h5" gutterBottom id="todo-info-name" data-testid="todolist-name" >
                         {todo.name}
                     </Typography>
                 </div>
-                <Typography variant="h5" >
+                <Typography variant="h5" id="todo-info-details" >
                     {todo.details}
                 </Typography>
             </CardContent>
