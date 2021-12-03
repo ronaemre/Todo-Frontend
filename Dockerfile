@@ -1,18 +1,40 @@
-# Stage 0 - Build Frontend Assets
-FROM node:12.16.3-alpine as build
+FROM docker:17.12.0-ce as static-docker-source
 
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM debian:stretch
+ARG CLOUD_SDK_VERSION=232.0.0
+ENV CLOUD_SDK_VERSION=$CLOUD_SDK_VERSION
 
-# Stage 1 - Serve Frontend Assets
-FROM fholzer/nginx-brotli:v1.12.2
-
-WORKDIR /etc/nginx
-ADD nginx.conf /etc/nginx/nginx.conf
-
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 443
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=static-docker-source /usr/local/bin/docker /usr/local/bin/docker
+RUN apt-get -qqy update && apt-get install -qqy \
+    curl \
+    gcc \
+    python-dev \
+    python-setuptools \
+    apt-transport-https \
+    lsb-release \
+    openssh-client \
+    git \
+    gnupg \
+    && easy_install -U pip && \
+    pip install -U crcmod   && \
+    export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+    echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    apt-get update && \
+    apt-get install -y google-cloud-sdk=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-app-engine-python=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-app-engine-python-extras=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-app-engine-java=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-app-engine-go=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-datalab=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-datastore-emulator=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-pubsub-emulator=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-bigtable-emulator=${CLOUD_SDK_VERSION}-0 \
+    google-cloud-sdk-cbt=${CLOUD_SDK_VERSION}-0 \
+    kubectl && \
+    gcloud config set core/disable_usage_reporting true && \
+    gcloud config set component_manager/disable_update_check true && \
+    gcloud config set metrics/environment github_docker_image && \
+    gcloud --version && \
+    docker --version && kubectl version --client
+VOLUME ["/root/.config"]
