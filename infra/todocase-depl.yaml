@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: todocase-depl
+spec: 
+    selector:
+      matchLabels:
+        app: todocase
+    replicas:
+    template:
+      metadata:
+        labels:
+          app: todocase
+      spec:
+        container:
+        - name: todocase
+          image: ronaemre/todocase
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: todocase-srv
+spec:
+  type: NodePort
+  selector:
+    app: react-app
+  ports:
+    - name: my-app
+    port: 3000
+    targetPort: 3000
+
