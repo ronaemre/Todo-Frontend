@@ -1,14 +1,18 @@
-FROM alpine
-RUN apk add --update curl python bash &&  rm -rf /var/cache/apk/*
-ENV HOME /
-#RUN curl https://sdk.cloud.google.com | bash
-ARG CLOUD_SDK_VERSION=151.0.1
-ARG SHA256SUM=26b84898bc7834664f02b713fd73c7787e62827d2d486f58314cdf1f6f6c56bb
-RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
-RUN echo "${SHA256SUM}  google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz" > google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz.sha256
-RUN sha256sum -c google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz.sha256
-RUN tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz 
-ENV PATH /google-cloud-sdk/bin:$PATH
-RUN gcloud config set core/disable_usage_reporting true
-RUN gcloud config set component_manager/disable_update_check true
-VOLUME ["/.config"]
+# Stage 0 - Build Frontend Assets
+FROM node:12.16.3-alpine as build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 1 - Serve Frontend Assets
+FROM fholzer/nginx-brotli:v1.12.2
+
+WORKDIR /etc/nginx
+ADD nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 443
+CMD ["nginx", "-g", "daemon off;"]
