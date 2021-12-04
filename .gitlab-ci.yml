@@ -1,7 +1,18 @@
 image: docker:latest
 
 stages:
+  - acceptance-tests
   - deploy
+
+  include:
+
+
+acceptance-tests:
+stage: acceptance-tests
+script:
+- git clone "git@gitlab.com:ronaemre7231/acceptance-tests.git"
+- npm test
+
 
 deploy:
   stage: deploy
