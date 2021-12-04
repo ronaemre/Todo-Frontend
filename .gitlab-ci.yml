@@ -5,7 +5,7 @@ stages:
   - deploy
 
 include:
-  - project: "Rona Emre Altuğ/gitlab-ci-files"
+  - project: "RonaEmreAltuğ/gitlab-ci-files"
     file: "/gauge/acceptance-test.yml" # https://gitlab.com/ronaemre7231/gitlab-ci-files/-/blob/main/gauge/acceptance-test.yml
 
 acceptance-tests:
