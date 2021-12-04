@@ -10,6 +10,6 @@ deploy:
     - docker:dind
   script:
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json # Google Cloud service accounts
-    - gcloud auth activate-service-account 1063618009-compute@developer.gserviceaccount.com --key-file=todocase2-e90a2379f181.json
+    - gcloud auth activate-service-account 1063618009-compute@developer.gserviceaccount.com --key-file=/home/ronaredrum/Downloads/todocase2-e90a2379f181.json
     - gcloud config set project todocase2
     - gcloud builds submit . --config=todocase-depl.yaml
