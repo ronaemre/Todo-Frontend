@@ -13,4 +13,6 @@ deploy:
     - gcloud auth activate-service-account 1063618009-compute@developer.gserviceaccount.com --key-file=todocase2-e90a2379f181.json
     - gcloud auth configure-docker
     - gcloud config set project $GCP_PROJECT_ID
-    - gcloud builds submit . --config=todocase-depl.yaml
+    - gcloud builds submit --tag gcr.io/$GCP_PROJECT_ID/$SERVICE_NAME #Run the gcloud build command to build our image
+    - gcloud run deploy $SERVICE_NAME --image gcr.io/$GCP_PROJECT_ID/$SERVICE_NAME --region=us-central1 --platform managed --allow-unauthenticated # Run the gcloud run deploy command to deploy our new service
+
