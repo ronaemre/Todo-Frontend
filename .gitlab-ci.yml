@@ -1,23 +1,15 @@
-image: ronaemre/todocase:latest
+image: docker:latest
 
-build1:
-  stage: build
-  script:
-    - echo "Do your build here"
+stages:
+  - deploy
 
-test1:
-  stage: test
-  script:
-    - echo "Do a test here"
-    - echo "For example run a test suite"
-
-test2:
-  stage: test
-  script:
-    - echo "Do another parallel test here"
-    - echo "For example run a lint test"
-
-deploy1:
+deploy:
   stage: deploy
+  image: google/cloud-sdk
+  services:
+    - docker:dind
   script:
-    - echo "Do your deploy here"
+    - echo $GCP_SERVICE_KEY > gcloud-service-key.json # Google Cloud service accounts
+    - gcloud auth activate-service-account --key-file gcloud-service-key.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud builds submit . --config=cloudbuild.yaml
