@@ -15,7 +15,7 @@ const TodoList = ({ todo, setTodosHandler }) => {
 
     async function deleteTodoHandler(id) {
         const response = await deleteTodo(id)
-        setTodosHandler(response.data)
+        setTodosHandler(id)
     }
 
 

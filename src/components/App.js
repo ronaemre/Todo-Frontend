@@ -20,9 +20,15 @@ function App() {
   }
 
 
-  const setTodosHandler = (todoss) => {
+  const AddTodosHandler = (todoss) => {
     setTodos((todos) => [...todos, todoss])
   }
+
+  const DeleteTodosHandlerr = (id) => {
+    setTodos([...todos].filter((item) => item.id !== id));
+  }
+
+
 
   useEffect(() => {
     getTodosHandler();
@@ -32,8 +38,8 @@ function App() {
     <div >
 
       <WebNavbar />
-      <AddTodo todos={todos} setTodosHandler={setTodosHandler} />
-      <TodoLists todos={todos} setTodosHandler={setTodosHandler} />
+      <AddTodo todos={todos} setTodosHandler={AddTodosHandler} />
+      <TodoLists todos={todos} setTodosHandler={DeleteTodosHandlerr} />
     </div>
   );
 }

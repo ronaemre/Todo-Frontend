@@ -48,7 +48,6 @@ const AddTodo = ({ setTodosHandler }) => {
                         <input type="text" className="form-control" data-testid="details_input" name="details" onChange={(e) => setDetails(e.target.value)} />
                     </div>
                 </div>
-                <h3>Agaaa gcloud başarılı .d Aga Deploy da başarılı .dddd</h3>
                 <h3 data-testid="error" id="saved-succesfuly">{saved}</h3>
                 <input
                     onClick={addTodo}
