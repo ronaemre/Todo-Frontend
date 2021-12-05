@@ -1,4 +1,4 @@
-### Hi there, I'm Rona Emre - Altuğ [codeSTACKr][website] 👋
+### Hi there, I'm Rona Emre - Altuğ [RONA][website] 👋
 
 [![Website](https://img.shields.io/website?label=codeSTACKr.com&style=for-the-badge&url=https%3A%2F%2Fcodestackr.com)](https://github.com/ronaemre)
 
