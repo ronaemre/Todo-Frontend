@@ -1,13 +1,13 @@
 ### Hi there, I'm Rona Emre - Altuğ [codeSTACKr][website] 👋
 
-[![Website](https://github.com/ronaemre)](https://github.com/ronaemre)
+[![Website](https://img.shields.io/website?label=codeSTACKr.com&style=for-the-badge&url=https%3A%2F%2Fcodestackr.com)](https://github.com/ronaemre)
 
 ## I'm a Software Engineer,
 
 - 🔭 I’m currently learning everything 🤣
 - 🌱 I’m currently trying everything 🤣
 - 👯 I’m looking to collaborate with other content creators
-- 🥅 2020 Goals: Contribute more to Open Source projects
+- 🥅 2021 Goals: Contribute more to Open Source projects
 - ⚡ Fun fact: I love to play Vid3o Games
 
 ### Connect with me:
