@@ -4,7 +4,7 @@ stages:
   - acceptance-tests
   - deploy
 
-includes:
+include:
   - project: "ronaemre7231/gitlab-ci-files"
     file: "/gauge/acceptance-test.yml" # https://gitlab.com/ronaemre7231/gitlab-ci-files/-/blob/main/gauge/acceptance-test.yml
 
