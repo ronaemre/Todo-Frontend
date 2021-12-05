@@ -9,10 +9,10 @@ include:
     file: "/gauge/acceptance-test.yml" # https://gitlab.com/ronaemre7231/gitlab-ci-files/-/blob/main/gauge/acceptance-test.yml
 
 acceptance-tests:
-stage: acceptance-tests
-extends: .acceptance-test
-script:
-  - echo "started"
+  stage: acceptance-tests
+  extends: .acceptance-test
+  script:
+    - echo "started"
 
 deploy:
   stage: deploy
