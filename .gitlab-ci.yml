@@ -10,9 +10,10 @@ include:
 
 acceptance-tests:
   stage: acceptance-tests
-  extends: .acceptance-test
   script:
-    - echo "started"
+    - git clone https://gitlab.com/ronaemre7231/acceptance-tests.git
+    - npm install
+    - npm test
 
 deploy:
   stage: deploy
