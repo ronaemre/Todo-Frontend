@@ -11,7 +11,8 @@ include:
 acceptance-tests:
 stage: acceptance-tests
 extends: .acceptance-test
-script: echo started
+script:
+  - echo "started"
 
 deploy:
   stage: deploy
